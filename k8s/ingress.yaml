@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: node-hostname-ingress
+  annotations:
+    networking.k8s.io/ingress.class: "nginx"
+spec:
+  tls:
+    - hosts:
+        - node-hostname.test
+      secretName: tls-secret
+  rules:
+    - host: node-hostname.test
+      http:
+        paths:node-hostname.test
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: node-hostname-service
+                port:
+                  number: 80
